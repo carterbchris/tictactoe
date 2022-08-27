@@ -1,3 +1,4 @@
+// Declare DOM elements
 const cellElements = document.querySelectorAll('[data-cell]')
 const board = document.querySelector("#board")
 const winningMessage = document.querySelector('#winningMessage')
@@ -6,17 +7,36 @@ const winningCombinations = [
     [0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]
 ]
 const winningMessageText = document.querySelector("[data-winning-message-text]")
+const startMessage = document.querySelector('#startMessage')
+const onePlayerButton = document.querySelector('#onePlayerButton')
+const twoPlayerButton = document.querySelector('#twoPlayerButton')
+
+// Set initial variables for game
 const x_class = "x";
 const o_class = "o";
 let circleTurn
+let twoPlayer
 
+gameIntro()
+
+function gameIntro() {
+    twoPlayer = ""
+    startMessage.classList.remove('hide');
+    onePlayerButton.addEventListener('click', startGame);
+    twoPlayerButton.addEventListener('click', gameType)
+}
+
+function gameType() {
+    twoPlayer = true;
+    startGame()
+}
+// Checking if restartButton is on the screen
 if (restartButton) {
     restartButton.addEventListener('click', restartGame)
 }
 
-startGame()
-
 function startGame() {
+    startMessage.classList.add('hide')
     circleTurn = false;
     cellElements.forEach(cell => {
         cell.addEventListener('click', handleClick, { once: true })
@@ -35,6 +55,9 @@ function handleClick(e) {
     } else {
         switchTurn()
         boardHoverClass(currentClass)
+        if (twoPlayer) {
+            computerTurn()
+        }
     }
 }
 
@@ -83,5 +106,26 @@ function restartGame() {
     board.classList.remove(x_class)
     board.classList.remove(o_class)
     winningMessage.classList.remove("show")
-    startGame()
+    gameIntro()
+}
+
+function computerTurn() {
+    let possibleMoves = [...cellElements].filter(cell => {
+        if (cell.classList.contains(x_class) || cell.classList.contains(o_class)) {
+
+        } else {
+            return cell
+        }
+    });
+    const cell = possibleMoves[Math.floor(Math.random() * possibleMoves.length)]
+    const currentClass = circleTurn ? o_class : x_class;
+    placeMarker(cell, currentClass)
+    if (checkWin(currentClass)) {
+        endGame(false)
+    } else if (isDraw()) {
+        endGame(true)
+    } else {
+        switchTurn()
+        boardHoverClass(currentClass)
+    }
 }
