@@ -55,7 +55,7 @@ function handleClick(e) {
     } else {
         switchTurn()
         boardHoverClass(currentClass)
-        if (twoPlayer) {
+        if (!twoPlayer) {
             computerTurn()
         }
     }
