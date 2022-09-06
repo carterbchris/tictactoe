@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+    	<meta charset="utf-8">
+    	<meta name="description" content="This is where your description goes">
+    	<meta name="keywords" content="one, two, three">
+
+		<title>Title in the tab</title>
+
+		<!-- external CSS link -->
+		<link rel="stylesheet" href="css/normalize.css">
+		<link rel="stylesheet" href="css/oss-style.css">
+	</head>
+	<body>
+		<div class="scores">
+			<div class="xScore">X: 0</div>
+			<div class="yScore">Y: 0</div>
+		</div>
+		<div class="board" id="board">
+			<div class="cell" data-cell="0"></div>
+			<div class="cell" data-cell="1"></div>
+			<div class="cell" data-cell="2"></div>
+			<div class="cell" data-cell="3"></div>
+			<div class="cell" data-cell="4"></div>
+			<div class="cell" data-cell="5"></div>
+			<div class="cell" data-cell="6"></div>
+			<div class="cell" data-cell="7"></div>
+			<div class="cell" data-cell="8"></div>
+		</div>
+		<div class="winning-message" id="winningMessage">
+			<div data-winning-message-text></div>
+			<button id="restartButton">Restart</button>
+		</div>
+		<script type="text/javascript" src="js/oos.js"></script>
+	</body>
+</html>
